@@ -14,11 +14,18 @@ def run():
     The AI will generate a full PRD from your idea automatically!
     """
     # Simple project idea - just describe what you want to build!
+    # The AI will break this down into multiple features (8-15 features expected)
     project_idea = """
-    I want to build an e-commerce platform where users can browse products, 
-    add items to their shopping cart, and checkout securely using Stripe. 
-    It should have user authentication, product search, order tracking, 
-    and an admin dashboard for managing inventory.
+    I want to build an e-commerce platform with the following capabilities:
+    
+    - Users should be able to browse and search products
+    - Users need shopping cart functionality to add/remove items
+    - Secure checkout process with Stripe payment integration
+    - User registration and authentication system
+    - Order tracking and history for customers
+    - Product reviews and ratings
+    - Admin dashboard for managing inventory and orders
+    - Email notifications for order confirmations
     """
     
     inputs = {

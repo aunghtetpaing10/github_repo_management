@@ -2,47 +2,271 @@ generate_prd_task:
   description: >
     Based on the user's project idea: {project_idea}
     
-    Generate a comprehensive Product Requirements Document (PRD) that includes:
-    1. Project Name - Create a clear, professional name based on the idea
-    2. Project Overview - Detailed description of what the project does and its purpose
-    3. Objectives - Key goals and outcomes the project aims to achieve
-    4. Target Users - Who will use this project and their needs
-    5. Tech Stack - Recommend appropriate technologies based on requirements:
-       - For web APIs: Python/FastAPI, Node.js/Express, etc.
-       - For frontends: React, Vue, Angular, etc.
-       - For databases: PostgreSQL, MongoDB, Redis, etc.
-       - Any other relevant tools and frameworks
-    6. Core Features - List all main features with detailed descriptions:
-       - Break down into specific, implementable features
-       - Include user authentication, data management, API endpoints, etc.
-       - Consider scalability, security, and best practices
-    7. Technical Requirements - Any specific technical considerations
-    8. Success Metrics - How to measure if the project meets its goals
+    Generate a comprehensive, implementation-ready Product Requirements Document (PRD).
+    The PRD must be detailed enough for project managers to create specific GitHub issues.
     
-    Make the PRD detailed, professional, and ready for technical implementation.
-    Use markdown formatting with clear sections and headings.
+    **REQUIRED SECTIONS:**
+    
+    1. **Project Name**
+       - Create a clear, professional name based on the idea
+       - Should be concise and descriptive
+    
+    2. **Project Overview**
+       - Detailed description of what the project does
+       - Problem it solves and value proposition
+       - Target audience and their pain points
+       - High-level solution approach
+    
+    3. **Objectives & Success Metrics**
+       - Specific, measurable goals (SMART criteria)
+       - Key performance indicators (KPIs)
+       - Definition of "done" for the project
+    
+    4. **Target Users & Use Cases**
+       - User personas (who will use this)
+       - Primary use cases and user workflows
+       - User stories format: "As a [user], I want [goal], so that [benefit]"
+    
+    5. **Tech Stack Recommendations**
+       - Backend: Recommend specific framework (Python/FastAPI, Node.js/Express, etc.)
+       - Frontend: Specific framework if needed (React, Vue, Angular, etc.)
+       - Database: Specific database technology (PostgreSQL, MongoDB, Redis, etc.)
+       - Authentication: Approach and tools (JWT, OAuth, etc.)
+       - Additional tools: API clients, testing frameworks, deployment platforms
+       - Justify each technology choice briefly
+    
+    6. **Core Features** (CRITICAL - Must be highly detailed)
+       
+       **IMPORTANT: You MUST break down the project into 5-15 separate features.**
+       Each feature should be a distinct, implementable component of the system.
+       
+       Examples of feature breakdown:
+       - E-commerce: User Auth, Product Catalog, Shopping Cart, Checkout, Payment, 
+         Order Management, Admin Dashboard, Reviews, Search, Inventory, etc.
+       - Blog: User Auth, Post Creation, Comments, Categories, Search, Media Upload,
+         User Profiles, Moderation, Analytics, etc.
+       - Social Media: User Auth, Profiles, Posts, Comments, Likes, Messaging,
+         Notifications, Feed Algorithm, Media Upload, Privacy Settings, etc.
+       
+       DO NOT combine multiple functionalities into one feature. Break them down!
+       
+       For EACH feature, provide:
+       
+       **Feature Name:** Clear, descriptive title
+       
+       **Description:** 
+       - What the feature does in detail
+       - Why it's important to the project
+       - How users will interact with it
+       
+       **User Stories:**
+       - At least 2-3 user stories per feature
+       - Format: "As a [user type], I want [action], so that [benefit]"
+       
+       **Acceptance Criteria:**
+       - 5-10 specific, testable criteria per feature
+       - What must be true for this feature to be "done"
+       - Include functional and non-functional requirements
+       
+       **Technical Considerations:**
+       - API endpoints needed (specify HTTP methods and paths)
+       - Database models/schema requirements
+       - Key algorithms or business logic
+       - Security requirements (authentication, authorization, validation)
+       - Performance requirements
+       - Error handling needs
+       
+       **Dependencies:**
+       - Other features this depends on
+       - External services or APIs
+       - Infrastructure requirements
+       
+       **Priority:** High/Medium/Low based on importance to core functionality
+    
+    7. **Non-Functional Requirements**
+       - Performance expectations (response times, throughput)
+       - Security requirements (encryption, authentication, authorization)
+       - Scalability considerations
+       - Accessibility requirements
+       - Browser/device compatibility
+       - Monitoring and logging needs
+    
+    8. **Technical Architecture**
+       - High-level system architecture
+       - Component interaction diagram (described)
+       - Data flow overview
+       - Security architecture
+    
+    9. **Development Phases**
+       - Suggested implementation order (MVP → enhancements)
+       - Feature groupings for releases
+    
+    **FORMATTING REQUIREMENTS:**
+    - Use clear markdown with hierarchical headings (##, ###, ####)
+    - Use bullet points and numbered lists for clarity
+    - Include code snippets for API examples where relevant
+    - Use tables for tech stack comparison if multiple options
+    - Make it scannable and well-organized
+    
+    **QUALITY STANDARDS:**
+    - Each feature should have enough detail to create a complete GitHub issue
+    - Avoid vague language - be specific and actionable
+    - Include both happy path and edge cases
+    - Consider security, scalability, and maintainability from the start
   expected_output: >
-    A comprehensive, well-formatted PRD in markdown that includes all sections:
-    project name, description, objectives, tech stack recommendations,
-    detailed feature list, and technical requirements. The PRD should be
-    clear enough for developers to understand what needs to be built.
+    A comprehensive, implementation-ready PRD (8-15 pages equivalent) in markdown format
+    that includes:
+    - Clear project overview and objectives
+    - Justified tech stack recommendations
+    - **MINIMUM 5 features, RECOMMENDED 8-15 features** (one feature = one GitHub issue)
+    - Each feature must include:
+      * Clear, focused scope (single responsibility)
+      * Multiple user stories (2-3 minimum)
+      * 5-10 acceptance criteria
+      * Technical specifications (APIs, DB models, etc.)
+      * Dependencies and priorities
+    - Non-functional requirements
+    - Technical architecture overview
+    - Development phase recommendations
+    
+    **CRITICAL:** Break down complex functionality into separate features!
+    For example, "User Management" should be split into:
+    - User Registration & Authentication
+    - User Profile Management
+    - Password Reset & Recovery
+    - User Role & Permissions
+    
+    The PRD should be detailed enough that a project manager can immediately create
+    comprehensive GitHub issues (one per feature) without needing clarification.
   agent: prd_generator
 
 analyze_prd_task:
   description: >
     Analyze the provided Product Requirements Document: {prd_content}
     
-    Extract the following information:
-    - Project name and description
-    - Technology stack and dependencies
-    - List of features and functionality
-    - Any special requirements or constraints
+    Extract and structure ALL information comprehensively for downstream tasks.
+    This data will be used to create GitHub repositories and detailed issues.
     
-    Use the parse_prd_document tool to extract structured information.
-    Return a comprehensive summary of the project requirements in JSON format.
+    **EXTRACTION REQUIREMENTS:**
+    
+    1. **Project Metadata:**
+       - Project name
+       - Project description (full overview)
+       - Project objectives and goals
+       - Target users and personas
+       - Success metrics
+    
+    2. **Technology Stack:**
+       - Backend framework and version
+       - Frontend framework (if applicable)
+       - Database technology
+       - Authentication method
+       - Additional libraries and tools
+       - Deployment platform recommendations
+       - Justifications for each technology choice
+    
+    3. **Features (CRITICAL - Extract maximum detail):**
+       For EACH feature, extract:
+       
+       - **Feature name/title**
+       - **Full description** (what it does, why it matters, how users interact)
+       - **User stories** (all stories mentioned in PRD)
+       - **Acceptance criteria** (complete list - 5-10 items per feature)
+       - **Technical requirements:**
+         * API endpoints (methods and paths)
+         * Database models/schemas
+         * Business logic requirements
+         * Security considerations
+         * Performance requirements
+       - **Dependencies** (other features, external services, prerequisites)
+       - **Priority level** (High/Medium/Low)
+       - **Implementation suggestions** (if mentioned in PRD)
+       - **Edge cases and considerations** (if mentioned)
+       - **Testing requirements** (if mentioned)
+    
+    4. **Non-Functional Requirements:**
+       - Performance expectations
+       - Security requirements
+       - Scalability needs
+       - Accessibility requirements
+       - Compatibility requirements
+    
+    5. **Technical Architecture:**
+       - System architecture overview
+       - Component interactions
+       - Data flow
+       - Security architecture
+    
+    6. **Development Phases:**
+       - Implementation order
+       - Feature groupings
+       - MVP vs. enhancements
+    
+    **IMPORTANT:**
+    - Use the parse_prd_document tool to extract structured information
+    - Preserve ALL details from the PRD - don't summarize or omit information
+    - Maintain the hierarchical structure of features and sub-features
+    - Extract exact acceptance criteria wording
+    - Preserve technical specifications verbatim
+    - Organize features by priority
+    
+    Return a comprehensive, deeply nested JSON structure with all extracted data.
   expected_output: >
-    A structured JSON object containing project_name, description, tech_stack,
-    and a list of features with their priorities and descriptions.
+    A comprehensive, structured JSON object containing:
+    
+    {
+      "project_name": "string",
+      "description": "string (full overview)",
+      "objectives": ["goal1", "goal2", ...],
+      "target_users": ["persona1", "persona2", ...],
+      "success_metrics": ["metric1", "metric2", ...],
+      "tech_stack": {
+        "backend": "framework name and justification",
+        "frontend": "framework name and justification",
+        "database": "database name and justification",
+        "authentication": "method and tools",
+        "additional_tools": ["tool1", "tool2", ...]
+      },
+      "features": [
+        {
+          "name": "Feature Name",
+          "description": "Detailed description",
+          "user_stories": ["story1", "story2", "story3"],
+          "acceptance_criteria": ["criterion1", "criterion2", ...],
+          "technical_requirements": {
+            "api_endpoints": [{"method": "POST", "path": "/api/...", "description": "..."}],
+            "database_models": ["Model1", "Model2"],
+            "business_logic": "description",
+            "security": ["requirement1", "requirement2"],
+            "performance": "requirements"
+          },
+          "dependencies": ["dependency1", "dependency2"],
+          "priority": "High|Medium|Low",
+          "implementation_approach": "suggested approach",
+          "edge_cases": ["case1", "case2"],
+          "testing_requirements": ["test1", "test2"]
+        },
+        ...
+      ],
+      "non_functional_requirements": {
+        "performance": "expectations",
+        "security": "requirements",
+        "scalability": "considerations",
+        "accessibility": "requirements"
+      },
+      "architecture": {
+        "overview": "description",
+        "components": "description",
+        "data_flow": "description"
+      },
+      "development_phases": {
+        "mvp": ["feature1", "feature2"],
+        "enhancements": ["feature3", "feature4"]
+      }
+    }
+    
+    Ensure NO information from the PRD is lost in extraction. This structured data
+    will be used to create comprehensive GitHub issues, so completeness is critical.
   agent: prd_analyst
 
 create_repository_task:
@@ -54,16 +278,169 @@ create_repository_task:
     2. Use the project description from the PRD
     3. Create a comprehensive README.md that includes:
        - Project title and description
-       - Technology stack
-       - Features list
-       - Setup instructions placeholder
-       - Contributing guidelines placeholder
-    4. Create standard labels for issue categorization (feature, bug, enhancement, documentation)
+       - Project overview and objectives
+       - Technology stack (with justifications from PRD)
+       - Features list (from PRD)
+       - **Setup Instructions** - Create detailed, tech-stack-specific setup guide:
+         * Prerequisites (Node.js version, Python version, database, etc.)
+         * Installation steps (clone repo, install dependencies)
+         * Environment variables needed (.env template)
+         * Database setup commands
+         * How to run development server
+         * How to run tests
+         * Common troubleshooting tips
+       - **Contributing Guidelines** - Create helpful contribution guide:
+         * How to report bugs
+         * How to suggest features
+         * Development workflow (fork, branch, PR)
+         * Code style guidelines
+         * Commit message conventions
+         * How to run tests before submitting PR
+       - **Project Structure** - Brief overview of folder organization
+       - **License** - Mention license type (e.g., MIT)
     
-    Ensure the repository is properly initialized and ready for development.
+    **README TEMPLATE EXAMPLE:**
+    Use this structure and adapt it to the specific tech stack:
+    
+    ```markdown
+    # Project Name
+    
+    Brief description of what the project does.
+    
+    ## Overview
+    Detailed explanation of the project's purpose and goals.
+    
+    ## Tech Stack
+    - **Backend**: FastAPI (Python 3.11) - Fast, modern API framework
+    - **Frontend**: React 18 with TypeScript - Type-safe UI development
+    - **Database**: PostgreSQL 15 - Robust relational database
+    - **Authentication**: JWT tokens - Secure stateless auth
+    
+    ## Features
+    - Feature 1
+    - Feature 2
+    
+    ## Setup Instructions
+    
+    ### Prerequisites
+    - Python 3.11+
+    - Node.js 18+
+    - PostgreSQL 15+
+    
+    ### Installation
+    1. Clone the repository
+       ```bash
+       git clone https://github.com/username/project.git
+       cd project
+       ```
+    
+    2. Install backend dependencies
+       ```bash
+       cd backend
+       pip install -r requirements.txt
+       ```
+    
+    3. Install frontend dependencies
+       ```bash
+       cd frontend
+       npm install
+       ```
+    
+    4. Set up environment variables
+       ```bash
+       cp .env.example .env
+       # Edit .env with your configuration
+       ```
+    
+    5. Set up database
+       ```bash
+       createdb projectdb
+       python manage.py migrate
+       ```
+    
+    6. Run development servers
+       ```bash
+       # Backend (terminal 1)
+       cd backend
+       uvicorn main:app --reload
+       
+       # Frontend (terminal 2)
+       cd frontend
+       npm run dev
+       ```
+    
+    ### Environment Variables
+    - `DATABASE_URL` - PostgreSQL connection string
+    - `JWT_SECRET` - Secret key for JWT tokens
+    - `STRIPE_API_KEY` - Stripe API key for payments
+    
+    ## Contributing Guidelines
+    
+    We welcome contributions! Please follow these steps:
+    
+    1. **Report Bugs**: Open an issue with the `bug` label
+    2. **Suggest Features**: Open an issue with the `enhancement` label
+    3. **Submit Changes**:
+       - Fork the repository
+       - Create a feature branch (`git checkout -b feature/amazing-feature`)
+       - Make your changes
+       - Run tests (`npm test` or `pytest`)
+       - Commit with clear messages (`git commit -m 'Add amazing feature'`)
+       - Push to your fork (`git push origin feature/amazing-feature`)
+       - Open a Pull Request
+    
+    ### Code Style
+    - Backend: Follow PEP 8 (Python)
+    - Frontend: Use ESLint + Prettier
+    - Write meaningful commit messages
+    - Add tests for new features
+    
+    ## Project Structure
+    ```
+    project/
+    ├── backend/          # FastAPI backend
+    ├── frontend/         # React frontend
+    ├── database/         # Database migrations
+    └── docs/            # Documentation
+    ```
+    
+    ## License
+    MIT License - see LICENSE file for details
+    ```
+    
+    Adapt this template to match the actual tech stack from the PRD.
+    
+    4. Create ALL necessary labels for issue categorization:
+       
+       **Type Labels:**
+       - feature (color: 0e8a16) - New features or functionality
+       - bug (color: d73a4a) - Something isn't working
+       - enhancement (color: a2eeef) - Improvements to existing features
+       - documentation (color: 0075ca) - Documentation updates
+       
+       **Priority Labels:**
+       - priority-high (color: d93f0b) - High priority items
+       - priority-medium (color: fbca04) - Medium priority items
+       - priority-low (color: c5def5) - Low priority items
+       
+       **Category Labels:**
+       - backend (color: 5319e7) - Backend related
+       - frontend (color: 1d76db) - Frontend related
+       - database (color: 006b75) - Database related
+       - api (color: 0052cc) - API related
+       - security (color: ee0701) - Security related
+       - testing (color: bfd4f2) - Testing related
+    
+    Ensure the repository is properly initialized with ALL labels before any issues are created.
   expected_output: >
-    Confirmation message with the repository URL and confirmation that README
-    and labels have been created successfully.
+    Confirmation message containing:
+    1. Repository URL
+    2. Confirmation that comprehensive README.md was created with:
+       - Complete setup instructions (not just placeholders)
+       - Detailed contributing guidelines
+       - All sections populated with relevant content
+    3. Confirmation that all 13 labels were created successfully
+    4. Repository is ready for issue creation
   agent: repository_creator
 
 create_issues_task:
@@ -71,16 +448,113 @@ create_issues_task:
     Based on the PRD analysis: {prd_data}
     And the created repository: {repo_name}
     
-    Create GitHub issues for each feature identified in the PRD:
-    1. For each feature, create a detailed issue with:
-       - Clear title summarizing the feature
-       - Detailed description from the PRD
-       - Appropriate labels (feature, and priority-based labels)
-    2. Ensure issues are numbered and organized
-    3. Add any relevant technical details from the tech stack
+    **CRITICAL:** Create ONE comprehensive GitHub issue for EACH feature in the PRD.
+    If the PRD has 8 features, you MUST create 8 separate issues.
+    DO NOT combine multiple features into one issue.
+    DO NOT skip any features from the PRD.
     
-    Create all issues systematically to establish a complete development backlog.
+    For each feature in the PRD, create a comprehensive, developer-ready GitHub issue.
+    Each issue MUST follow this detailed structure:
+    
+    **ISSUE TITLE:**
+    - Clear, concise, action-oriented (start with verb: "Implement", "Create", "Add", "Build")
+    - Example: "Implement user authentication with JWT tokens"
+    
+    **ISSUE BODY STRUCTURE:**
+    
+    ## Overview
+    - Brief description of what needs to be built and why
+    - Connection to overall project goals
+    
+    ## Detailed Description
+    - Comprehensive explanation of the feature
+    - User stories or use cases (As a [user], I want [goal], so that [benefit])
+    - Expected user experience and workflows
+    
+    ## Acceptance Criteria
+    - Clear, testable checklist of requirements (use checkbox format)
+    - Example:
+      - [ ] User can register with email and password
+      - [ ] Password must meet security requirements (8+ chars, symbols)
+      - [ ] Email verification is sent upon registration
+      - [ ] User receives JWT token after successful login
+    
+    ## Technical Requirements
+    - Specific technologies from the tech stack to use
+    - API endpoints to create (with HTTP methods and paths)
+    - Database schema/models needed
+    - External services or APIs to integrate
+    - Security considerations (authentication, authorization, data validation)
+    
+    ## Implementation Approach
+    - Suggested high-level implementation steps
+    - Key files/modules that will need to be created or modified
+    - Recommended libraries or packages
+    - Architecture patterns to follow
+    
+    ## Dependencies
+    - List any issues that must be completed first
+    - Required setup or configuration
+    
+    ## Edge Cases & Considerations
+    - Error handling scenarios
+    - Validation requirements
+    - Performance considerations
+    - Scalability concerns
+    
+    ## Testing Requirements
+    - Types of tests needed (unit, integration, e2e)
+    - Key scenarios to test
+    - Expected test coverage areas
+    
+    **LABELS:**
+    - Primary: Always use "feature" label
+    - Priority: Add ONE priority label based on importance:
+      * "priority-high" - Core functionality, MVP features
+      * "priority-medium" - Important but not critical
+      * "priority-low" - Nice-to-have features, enhancements
+    - Category: Add relevant category labels (choose all that apply):
+      * "backend" - Backend/server-side work
+      * "frontend" - Frontend/client-side work
+      * "database" - Database schema or queries
+      * "api" - API endpoints or integrations
+      * "security" - Security-related features
+      * "testing" - Testing infrastructure
+    
+    **CRITICAL:** Use exact label names with hyphens (e.g., "priority-high", NOT "high priority")
+    
+    **EXAMPLE LABEL USAGE:**
+    Correct: ["feature", "priority-high", "backend", "api", "security"]
+    Wrong: ["feature", "high priority", "Backend", "API"]
+    
+    **ADDITIONAL REQUIREMENTS:**
+    - Number issues logically (core features first, then enhancements)
+    - Ensure each issue is independently implementable
+    - Keep issues focused (if too large, consider breaking into sub-tasks)
+    - Use markdown formatting for readability
+    - Include code snippets or examples where helpful
+    
+    **VERIFICATION STEP:**
+    Before finishing, verify that:
+    - Number of issues created = Number of features in PRD
+    - Every feature from the PRD has a corresponding GitHub issue
+    - No features were skipped or combined
+    
+    Create all issues systematically to establish a production-ready development backlog.
   expected_output: >
-    A summary report listing all created issues with their URLs, titles,
-    and confirmation that the project backlog is ready for development.
+    A detailed summary report containing:
+    1. Total number of issues created (MUST equal the number of features in the PRD)
+       - Example: If PRD has 8 features → create 8 issues
+       - Example: If PRD has 12 features → create 12 issues
+    2. For each issue:
+       - Issue number and URL
+       - Title
+       - Priority level
+       - Labels applied
+       - Brief summary of acceptance criteria count
+    3. Confirmation that all issues are properly structured with:
+       - Overview, Description, Acceptance Criteria, Technical Requirements,
+         Implementation Approach, Dependencies, Edge Cases, and Testing Requirements
+    4. Backlog organization summary (prioritized list)
+    5. Any recommendations for issue grouping or sprint planning
   agent: issue_manager
