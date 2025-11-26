@@ -1,3 +1,33 @@
+generate_prd_task:
+  description: >
+    Based on the user's project idea: {project_idea}
+    
+    Generate a comprehensive Product Requirements Document (PRD) that includes:
+    1. Project Name - Create a clear, professional name based on the idea
+    2. Project Overview - Detailed description of what the project does and its purpose
+    3. Objectives - Key goals and outcomes the project aims to achieve
+    4. Target Users - Who will use this project and their needs
+    5. Tech Stack - Recommend appropriate technologies based on requirements:
+       - For web APIs: Python/FastAPI, Node.js/Express, etc.
+       - For frontends: React, Vue, Angular, etc.
+       - For databases: PostgreSQL, MongoDB, Redis, etc.
+       - Any other relevant tools and frameworks
+    6. Core Features - List all main features with detailed descriptions:
+       - Break down into specific, implementable features
+       - Include user authentication, data management, API endpoints, etc.
+       - Consider scalability, security, and best practices
+    7. Technical Requirements - Any specific technical considerations
+    8. Success Metrics - How to measure if the project meets its goals
+    
+    Make the PRD detailed, professional, and ready for technical implementation.
+    Use markdown formatting with clear sections and headings.
+  expected_output: >
+    A comprehensive, well-formatted PRD in markdown that includes all sections:
+    project name, description, objectives, tech stack recommendations,
+    detailed feature list, and technical requirements. The PRD should be
+    clear enough for developers to understand what needs to be built.
+  agent: prd_generator
+
 analyze_prd_task:
   description: >
     Analyze the provided Product Requirements Document: {prd_content}

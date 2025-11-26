@@ -15,39 +15,22 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 def run():
     """
-    Run the crew with a sample PRD.
+    Run the crew with a simple project idea.
+    The AI will generate a full PRD from your idea automatically!
     """
-    # Sample PRD for demonstration
-    sample_prd = """
-    # E-Commerce Platform
-    
-    ## Description
-    A modern e-commerce platform that enables users to browse products, 
-    add items to cart, and complete purchases securely.
-    
-    ## Tech Stack
-    - Python
-    - FastAPI
-    - PostgreSQL
-    - React
-    - Redux
-    - Stripe API
-    
-    ## Features
-    - User authentication and profile management
-    - Product catalog with search and filtering
-    - Shopping cart functionality
-    - Secure payment processing with Stripe
-    - Order tracking and history
-    - Admin dashboard for inventory management
-    - Email notifications for orders
-    - Product reviews and ratings
+    # Simple project idea - just describe what you want to build!
+    project_idea = """
+    I want to build an e-commerce platform where users can browse products, 
+    add items to their shopping cart, and checkout securely using Stripe. 
+    It should have user authentication, product search, order tracking, 
+    and an admin dashboard for managing inventory.
     """
     
     inputs = {
-        'prd_content': sample_prd,
-        'prd_data': '',  
-        'repo_name': '' 
+        'project_idea': project_idea,
+        'prd_content': '',  # Will be generated automatically
+        'prd_data': '',     # Will be extracted from generated PRD
+        'repo_name': ''     # Will be determined from PRD
     }
 
     try:

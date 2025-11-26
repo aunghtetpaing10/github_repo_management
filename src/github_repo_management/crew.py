@@ -32,6 +32,13 @@ class GithubRepoManagement():
     # If you would like to add tools to your agents, you can learn more about it here:
     # https://docs.crewai.com/concepts/agents#agent-tools
     @agent
+    def prd_generator(self) -> Agent:
+        return Agent(
+            config=self.agents_config['prd_generator'], # type: ignore[index]
+            verbose=True
+        )
+
+    @agent
     def prd_analyst(self) -> Agent:
         return Agent(
             config=self.agents_config['prd_analyst'], # type: ignore[index]
@@ -75,6 +82,12 @@ class GithubRepoManagement():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+    @task
+    def generate_prd_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['generate_prd_task'], # type: ignore[index]
+        )
+
     @task
     def analyze_prd_task(self) -> Task:
         return Task(
