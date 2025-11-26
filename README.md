@@ -67,6 +67,21 @@ The system will:
 4. Generate a comprehensive README
 5. Create issues for all features
 
+## Running Individual Agents
+
+You can run specific agents independently instead of the full workflow:
+```bash
+python test_single_agent.py
+```
+
+**Use cases:**
+- Test PRD generation without creating GitHub resources
+- Test issue creation on an existing repository
+- Debug specific agent configurations
+- Iterate quickly on prompt improvements
+
+---
+
 ## Using Your Own Project Idea
 
 Edit `src/github_repo_management/main.py` and replace the `project_idea` variable with your own description:
@@ -148,13 +163,3 @@ github_repo_management/
 - **Modify tasks**: Edit `src/github_repo_management/config/tasks.yaml`
 - **Add new tools**: Create tools in `src/github_repo_management/tools/`
 - **Change workflow**: Update `src/github_repo_management/crew.py`
-
-## Support
-
-For support, questions, or feedback regarding the GithubRepoManagement Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
