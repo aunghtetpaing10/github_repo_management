@@ -15,15 +15,47 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 def run():
     """
-    Run the crew.
+    Run the crew with a sample PRD.
     """
+    # Sample PRD for demonstration
+    sample_prd = """
+    # E-Commerce Platform
+    
+    ## Description
+    A modern e-commerce platform that enables users to browse products, 
+    add items to cart, and complete purchases securely.
+    
+    ## Tech Stack
+    - Python
+    - FastAPI
+    - PostgreSQL
+    - React
+    - Redux
+    - Stripe API
+    
+    ## Features
+    - User authentication and profile management
+    - Product catalog with search and filtering
+    - Shopping cart functionality
+    - Secure payment processing with Stripe
+    - Order tracking and history
+    - Admin dashboard for inventory management
+    - Email notifications for orders
+    - Product reviews and ratings
+    """
+    
     inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
+        'prd_content': sample_prd,
+        'prd_data': '',  
+        'repo_name': '' 
     }
 
     try:
-        GithubRepoManagement().crew().kickoff(inputs=inputs)
+        result = GithubRepoManagement().crew().kickoff(inputs=inputs)
+        print("\n" + "="*50)
+        print("✓ Project Setup Complete!")
+        print("="*50)
+        return result
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
 

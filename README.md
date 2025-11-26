@@ -1,47 +1,152 @@
-# GithubRepoManagement Crew
+# GitHub Repository Management - AI Agent System
 
-Welcome to the GithubRepoManagement Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+An intelligent multi-agent system powered by [crewAI](https://crewai.com) that automatically creates and configures GitHub repositories from Product Requirements Documents (PRDs).
+
+## What It Does
+
+Give the system a PRD (Product Requirements Document), and it will automatically:
+- ✅ Parse and analyze the PRD to extract project details, features, and tech stack
+- ✅ Create a new GitHub repository with the project name and description
+- ✅ Generate a comprehensive README with all project information
+- ✅ Create labeled issues for each feature identified in the PRD
+- ✅ Set up project labels for issue categorization
+- ✅ Provide a complete development backlog ready for your team
+
+## Architecture
+
+The system uses three specialized AI agents:
+
+1. **PRD Analyst Agent** - Extracts structured information from PRD documents
+2. **Repository Creator Agent** - Sets up GitHub repositories with proper configuration
+3. **Issue Manager Agent** - Creates and organizes issues from feature requirements
+
+## Prerequisites
+
+- Python >=3.10 <3.14
+- OpenAI API Key
+- GitHub Personal Access Token
 
 ## Installation
 
-Ensure you have Python >=3.10 <3.14 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
-
-First, if you haven't already, install uv:
-
+1. **Install UV** (Python package manager):
 ```bash
 pip install uv
 ```
 
-Next, navigate to your project directory and install the dependencies:
-
-(Optional) Lock the dependencies and install them by using the CLI command:
+2. **Install dependencies**:
 ```bash
 crewai install
 ```
-### Customizing
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/github_repo_management/config/agents.yaml` to define your agents
-- Modify `src/github_repo_management/config/tasks.yaml` to define your tasks
-- Modify `src/github_repo_management/crew.py` to add your own logic, tools and specific args
-- Modify `src/github_repo_management/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
+3. **Configure environment variables**:
+   - Copy `.env.example` to `.env`
+   - Add your `OPENAI_API_KEY`
+   - Add your `GITHUB_TOKEN` (create one at https://github.com/settings/tokens)
+     - Required scope: `repo` (full control of private repositories)
 
 ```bash
-$ crewai run
+cp .env.example .env
+# Then edit .env with your keys
 ```
 
-This command initializes the github-repo-management Crew, assembling the agents and assigning them tasks as defined in your configuration.
+## Quick Start
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
+Run the prototype with the sample PRD:
 
-## Understanding Your Crew
+```bash
+crewai run
+```
 
-The github-repo-management Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+The system will:
+1. Parse the sample e-commerce PRD included in `main.py`
+2. Create a GitHub repository named "e-commerce-platform" 
+3. Generate a comprehensive README
+4. Create issues for all features
+5. Output a summary report to `project_setup_report.md`
+
+## Using Your Own PRD
+
+Edit `src/github_repo_management/main.py` and replace the `sample_prd` variable with your PRD content:
+
+```python
+sample_prd = """
+# Your Project Name
+
+## Description
+Your project description here
+
+## Tech Stack
+- Technology 1
+- Technology 2
+
+## Features
+- Feature 1 description
+- Feature 2 description
+- Feature 3 description
+"""
+```
+
+## PRD Format Guidelines
+
+Your PRD should include:
+- **Project Name**: As a heading or "Project: Name"
+- **Description**: Project overview and goals
+- **Tech Stack**: List of technologies to be used
+- **Features**: List of features and functionality
+
+The parser is flexible and can handle various markdown formats.
+
+## Example Output
+
+When you run the system with a PRD, you'll see:
+
+```
+✓ PRD Analysis Complete
+  - Project: E-Commerce Platform
+  - Features Identified: 8
+  - Tech Stack: Python, FastAPI, PostgreSQL, React, Redux, Stripe API
+
+✓ Repository Created
+  - URL: https://github.com/yourusername/e-commerce-platform
+  - README: Generated with full project details
+  - Labels: Created (feature, bug, enhancement, documentation)
+
+✓ Issues Created
+  - #1 User authentication and profile management
+  - #2 Product catalog with search and filtering
+  - #3 Shopping cart functionality
+  - #4 Secure payment processing with Stripe
+  - #5 Order tracking and history
+  - #6 Admin dashboard for inventory management
+  - #7 Email notifications for orders
+  - #8 Product reviews and ratings
+
+✓ Project Setup Complete!
+```
+
+## Project Structure
+
+```
+github_repo_management/
+├── src/github_repo_management/
+│   ├── config/
+│   │   ├── agents.yaml          # Agent definitions
+│   │   └── tasks.yaml           # Task definitions
+│   ├── tools/
+│   │   ├── github_tools.py      # GitHub API integration
+│   │   └── prd_parser.py        # PRD parsing logic
+│   ├── crew.py                  # Crew orchestration
+│   └── main.py                  # Entry point
+├── .env.example                 # Environment variables template
+└── README.md                    # This file
+```
+
+## Customization
+
+- **Modify agents**: Edit `src/github_repo_management/config/agents.yaml`
+- **Modify tasks**: Edit `src/github_repo_management/config/tasks.yaml`
+- **Add new tools**: Create tools in `src/github_repo_management/tools/`
+- **Change workflow**: Update `src/github_repo_management/crew.py`
 
 ## Support
 
