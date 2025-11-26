@@ -8,17 +8,21 @@ Give the system a PRD (Product Requirements Document), and it will automatically
 - ✅ Parse and analyze the PRD to extract project details, features, and tech stack
 - ✅ Create a new GitHub repository with the project name and description
 - ✅ Generate a comprehensive README with all project information
+- ✅ **🆕 Scaffold complete project structure** with folders and base files
+- ✅ **🆕 Set up framework-specific boilerplate** (FastAPI, React, Node.js)
+- ✅ **🆕 Create development branches** and Git configuration
 - ✅ Create labeled issues for each feature identified in the PRD
 - ✅ Set up project labels for issue categorization
 - ✅ Provide a complete development backlog ready for your team
 
 ## Architecture
 
-The system uses three specialized AI agents:
+The system uses four specialized AI agents:
 
 1. **PRD Analyst Agent** - Extracts structured information from PRD documents
 2. **Repository Creator Agent** - Sets up GitHub repositories with proper configuration
-3. **Issue Manager Agent** - Creates and organizes issues from feature requirements
+3. **Project Scaffolder Agent** - 🆕 Creates folder structures and base files based on tech stack
+4. **Issue Manager Agent** - Creates and organizes issues from feature requirements
 
 ## Prerequisites
 
@@ -61,8 +65,30 @@ The system will:
 1. Parse the sample e-commerce PRD included in `main.py`
 2. Create a GitHub repository named "e-commerce-platform" 
 3. Generate a comprehensive README
-4. Create issues for all features
-5. Output a summary report to `project_setup_report.md`
+4. **🆕 Scaffold complete project structure** based on tech stack
+5. Create issues for all features
+6. Output a summary report to `project_setup_report.md`
+
+## 🆕 New: Project Scaffolding
+
+The system now automatically creates complete project structures! Based on the tech stack in your PRD:
+
+**For Python/FastAPI projects:**
+- Creates `app/`, `tests/`, `docs/` folders
+- Adds `main.py`, `config.py`, test files
+- Generates `requirements.txt`, `.env.example`, `.gitignore`
+
+**For React projects:**
+- Creates `src/components/`, `src/pages/`, `public/` folders
+- Adds `App.js`, `index.js`, styling files
+- Generates `package.json`, `.gitignore`
+
+**For Node.js/Express projects:**
+- Creates `src/routes/`, `src/controllers/`, `tests/` folders
+- Adds `index.js`, middleware files
+- Generates `package.json`, `.env.example`, `.gitignore`
+
+See [SCAFFOLDING_GUIDE.md](SCAFFOLDING_GUIDE.md) for detailed documentation.
 
 ## Using Your Own PRD
 
@@ -134,11 +160,17 @@ github_repo_management/
 │   │   └── tasks.yaml           # Task definitions
 │   ├── tools/
 │   │   ├── github_tools.py      # GitHub API integration
-│   │   └── prd_parser.py        # PRD parsing logic
+│   │   ├── prd_parser.py        # PRD parsing logic
+│   │   ├── git_tools.py         # 🆕 Git operations (files, branches)
+│   │   ├── scaffolding_tools.py # 🆕 Project scaffolding
+│   │   └── project_templates.py # 🆕 Framework templates
 │   ├── crew.py                  # Crew orchestration
 │   └── main.py                  # Entry point
+├── examples/
+│   └── scaffold_example.py      # 🆕 Usage examples
 ├── .env.example                 # Environment variables template
-└── README.md                    # This file
+├── README.md                    # This file
+└── SCAFFOLDING_GUIDE.md         # 🆕 Detailed scaffolding docs
 ```
 
 ## Customization
@@ -146,6 +178,7 @@ github_repo_management/
 - **Modify agents**: Edit `src/github_repo_management/config/agents.yaml`
 - **Modify tasks**: Edit `src/github_repo_management/config/tasks.yaml`
 - **Add new tools**: Create tools in `src/github_repo_management/tools/`
+- **Add project templates**: 🆕 Create templates in `src/github_repo_management/tools/project_templates.py`
 - **Change workflow**: Update `src/github_repo_management/crew.py`
 
 ## Support

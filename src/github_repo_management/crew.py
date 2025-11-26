@@ -7,7 +7,11 @@ from github_repo_management.tools import (
     CreateRepositoryTool,
     CreateIssueTool,
     CreateLabelsTool,
-    UpdateReadmeTool
+    UpdateReadmeTool,
+    ScaffoldProjectTool,
+    CreateBranchTool,
+    CreateFileTool,
+    CreateFolderStructureTool
 )
 
 # If you want to run a snippet of code before or after the crew starts,
@@ -55,6 +59,19 @@ class GithubRepoManagement():
             verbose=True
         )
 
+    @agent
+    def project_scaffolder(self) -> Agent:
+        return Agent(
+            config=self.agents_config['project_scaffolder'], # type: ignore[index]
+            tools=[
+                ScaffoldProjectTool(),
+                CreateBranchTool(),
+                CreateFileTool(),
+                CreateFolderStructureTool()
+            ],
+            verbose=True
+        )
+
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
@@ -74,6 +91,12 @@ class GithubRepoManagement():
     def create_issues_task(self) -> Task:
         return Task(
             config=self.tasks_config['create_issues_task'], # type: ignore[index]
+        )
+
+    @task
+    def scaffold_project_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['scaffold_project_task'], # type: ignore[index]
             output_file='project_setup_report.md'
         )
 

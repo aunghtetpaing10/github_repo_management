@@ -54,3 +54,29 @@ create_issues_task:
     A summary report listing all created issues with their URLs, titles,
     and confirmation that the project backlog is ready for development.
   agent: issue_manager
+
+scaffold_project_task:
+  description: >
+    Based on the PRD analysis: {prd_data}
+    And the created repository: {repo_name}
+    
+    Set up the complete project structure based on the identified tech stack:
+    1. Identify the appropriate project template based on the tech stack
+       (e.g., python-fastapi, react, node-express)
+    2. Create the folder structure following best practices
+    3. Add all base files and configuration files:
+       - Main application files
+       - Configuration files (.env.example, config files)
+       - .gitignore with appropriate patterns
+       - Package management files (requirements.txt, package.json, etc.)
+       - Basic test files
+    4. Optionally create development branches if needed
+    
+    Use the scaffold_project tool to automate this process with the appropriate template.
+  expected_output: >
+    Confirmation that the project has been scaffolded with:
+    - Number of folders created
+    - Number of files created
+    - Template used
+    - List of key files added (e.g., main.py, package.json, .gitignore)
+  agent: project_scaffolder
