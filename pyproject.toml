@@ -1,0 +1,24 @@
+[project]
+name = "github_repo_management"
+version = "0.1.0"
+description = "github-repo-management using crewAI"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10,<3.14"
+dependencies = [
+    "crewai[tools]==1.5.0"
+]
+
+[project.scripts]
+github_repo_management = "github_repo_management.main:run"
+run_crew = "github_repo_management.main:run"
+train = "github_repo_management.main:train"
+replay = "github_repo_management.main:replay"
+test = "github_repo_management.main:test"
+run_with_trigger = "github_repo_management.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.crewai]
+type = "crew"
